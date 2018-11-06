@@ -47,7 +47,9 @@
         "funcHostingPlanName": "[concat(parameters('solutionName'), '-funct-plan')]",
         "funcStorageAccountType": "Standard_LRS",
         "funcSku": "Standard",
-        "funcWorkerSize": "0"
+        "funcWorkerSize": "0",
+        "dpsLocation": "[resourceGroup().location]",
+        "dpsName":"[concat(parameters('solutionName'),'dps')]"
     },
     "resources": [
         {
@@ -89,6 +91,13 @@
                 "hostingEnvironment": "",
                 "numberOfWorkers": 1
             }
+        },
+        {
+            "apiVersion": "2017-08-21-preview",
+            "type": "Microsoft.Devices/ProvisioningServices",
+            "name": "[variables('dpsName')]",
+            "location": "[variables('dpsLocation')]",
+            "properties": {}
         },
         {
             "apiVersion": "[variables('funcApiVersion')]",
